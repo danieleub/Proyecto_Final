@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Prediccion de recuperación de COVID :D</h1>
+        <form method="POST">
+
+            <label for="fecha">Fecha:</label>
+            <input type="date" name="fecha" required><br>
+
+
+            <label for = "departamento">Departamento:</label>
+                <select name="departamento">
+                    {% for depto in departamentos %}
+                    <option value="{{ depto[0] }}">{{ depto[1] }}</option>
+                    {% endfor %}
+                </select>
+            <br>
+            
+            <label for = "edad">Edad:</label>
+            <input type="number" name="edad">
+            <br>
+
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+            <label style="margin: 0;">Sexo:</label>
+
+            <label style="display: flex; align-items: center; gap: 0.3rem; font-weight: normal;">
+                <input type="radio" name="sexo" value="Femenino" required>
+                Femenino
+            </label>
+
+            <label style="display: flex; align-items: center; gap: 0.3rem; font-weight: normal;">
+                <input type="radio" name="sexo" value="Masculino">
+                Masculino
+            </label>
+            </div>
+
+            <label for = "fuente_tipo_contagio">Fuente de tipo de contagio:</label>
+            <select name="fuente_tipo_contagio" required>
+                <option value=0>Comunitaria</option>
+                <option value=1>Relacionado</option>
+                <option value=2>Importado</option>
+            </select>
+            <br>
+
+            <input type="submit" value="Enviar">
+        </form>
+        {% if prediccion is not none %}
+            {% if prediccion == 1 %}
+                <h3 style="color:red">✖ Esta persona tiene baja probabilidad de recuperación.</h3>
+            {% elif prediccion == 0 %}
+                <h3 style="color:green;">✔ Esta persona tiene alta probabilidad de recuperación.</h3>
+            {% endif %}
+        {% endif %}
+
+
+        
+
+    </div>
+</body>
+</html>
